@@ -16,6 +16,6 @@ int main(){
   while(q--){
     int temp1,temp2;
     cin>>temp1>>temp2;
-    cout<<dp[temp2 + 2] - dp[temp1];
+    cout<<dp[temp2 + 1] - dp[temp1]<<endl;
   }
 }

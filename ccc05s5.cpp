@@ -2,34 +2,50 @@
 #define ll long long
 using namespace std;
 
-#define MAXN 10000005
-ll tbit[MAXN], arr[MAXN];
+#define MAXN 500000005
+int tbit[MAXN], arr[MAXN];
 
-void add(ll* bit, ll i, ll val){
-    while(i <= MAXN){
-        bit[i] += val;
-        i += (-i & i);
-    }
-}
-
-ll sum(ll* bit, ll i){
-    ll sum = 0;
-
-    while(i > 0){
-        sum += bit[i];
-        i -= (i & -i);
-    }
-    return sum;
-}
-//how to solve the problem. Every score added is placed in a bit. I sum up all the values of the arr up to the index of the added val
-int main(){
-  ll n,tot;
-  scanf("%lld",&n);
-  for(ll i = 1; i <= n;i++){
-    scanf("%lld", &arr[i]);
-    //note: if I need to retrieve the value of the bit at the nth index, I might just want tos tpore the stuff in an array
-    add(tbit,arr[i],1);
-    tot += sum(tbit,arr[i]);
+template<class T> class fenwick_tree {
+  int len;
+  std::vector<int> a, bit;
+public:
+  fenwick_tree(int n): len(n),
+  a(n + 1), bit(n + 1) {}
+  //a[i] += v
+  void add(int i, const T & v) {
+    a[++i] += v;
+    for (; i <= len; i += i & -i)
+    bit[i] += v;
   }
-  printf("%f",((double)(tot)/(double)n));
+  //a[i] = v
+  void set(int i, const T & v) {
+    T inc = v - a[i + 1];
+    add(i, inc);
+  }
+  //returns sum(a[i] for i = 1..hi inclusive)
+  T sum(int hi) {
+    T res = 0;
+    for (hi++; hi > 0; hi -= hi & -hi)
+    res += bit[hi];
+    return res;
+  }
+  //returns sum(a[i] for i = lo..hi inclusive)
+  T sum(int lo, int hi) {
+    return sum(hi) - sum(lo - 1);
+  }
+  inline int size() { return len; }
+  inline T at(int i) { return a[i + 1]; }
+};
+
+fenwick_tree<int> t(MAXN);
+int main(){
+  int n,tot;
+  tot = 0;
+  scanf("%d",&n);
+  for(int i = 1; i <= n;i++){
+    scanf("%d", &arr[i]);
+    t.add(arr[i],1);
+    tot += i -t.sum(arr[i]) + 1;
+  }
+  printf("%.2f",round((100 * (double)(tot))/(double)n)/100 );
 }

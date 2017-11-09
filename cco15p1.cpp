@@ -14,7 +14,6 @@ int main(){
   sort(arr, arr + n);
   previous = w;
   //max
-  bool toggle = true;
   bot = 0;
   top = n-1;
   for(int i = 0; i < n; i++){

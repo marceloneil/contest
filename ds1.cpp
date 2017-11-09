@@ -66,10 +66,12 @@ int main(){
     update(arr[i],i);
     update2(i,1);
   }
-  for(int z = 0 ;z < m; z++){
-    string a;
+  while(m--){
+    char a;
     cin>>a;
-    if(a == "C"){
+    cout<<"yo"<<endl;
+    if(a == 'C'){
+      cout<<"yo"<<endl;
       int b,c;
       int dif = c - arr[b];
       cin>>b>>c;
@@ -77,7 +79,8 @@ int main(){
       update2(1,dif);
       update2(-1,arr[b]);
       arr[b] = c;
-    }else if(a == "Q"){
+      cout<<"yo"<<endl;
+    }else if(a == 'Q'){
       int v;
       cin>>v;
       cout<<sum2(v)<<endl;

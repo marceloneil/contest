@@ -34,7 +34,7 @@ void dijsktra(int src){
 		visited[curNode] = true;
 
 		//Access all the adjacent nodes
-		
+
 		for (auto i : adjList[curNode]){
 			dist[i.first] = min(dist[i.first], dist[curNode] + i.second);
 		}
