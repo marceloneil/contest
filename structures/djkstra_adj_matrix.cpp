@@ -11,8 +11,8 @@ using namespace std;
 #define PI 3.141592653589793238462
 #define MOD 1000000007
 #define REP(i,a,b) for (int i = a; i <= b; i++)
-#define ll long long
 #define US (unsigned)
+#define ll long long
 typedef long long LL;
 typedef pair<int, int> PII;
 typedef vector<int> VI;
@@ -21,29 +21,27 @@ typedef vector<PII > VPII;
 typedef vector<VPII > VVPII;
 typedef map<int,int> MII;
 
-int edges[10005][10005];
-
-
-int dist[10005], parent[10005];
-bool vis[10005];
-int c,r,d;
+int dist[5005],vis[5005],cost[5005][5005];
+vector< vector<int>> edges;
 priority_queue<pair<int,int> > q;
-void prim(int root){
-  memset(dist, -1,sizeof dist);
-  //init vis and dist here
+
+void dijkstra(int root){
+  for(int i = 0; i <5005;i++){
+    dist[i] = 10005;
+  }
+  dist[root] = 0;
   q.push(make_pair(0,root));
   while (!q.empty()){
     pair<int,int> cur_pair = q.top(); q.pop();
     int cur = cur_pair.S;
     if (vis[cur]) continue;
     vis[cur] = 1;
-    //do what you want with edge (use parent[])
-    for(int i = 1 ; i <=r;i++){
-      if(edges[cur][i] != -1 && !vis[i]){
-        if (edges[cur][i] < dist[i]){
-          dist[i] = edges[cur][i];
-          parent[i] = cur;
-          q.push(make_pair(dist[i],i));
+    for (int u: edges[cur]){
+      if (!vis[u]){
+        int newDist = dist[cur] + cost[cur][u];
+        if (newDist < dist[u]){
+          dist[u] = newDist;
+          q.push(make_pair(newDist,u));
         }
       }
     }

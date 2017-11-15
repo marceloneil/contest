@@ -11,6 +11,7 @@ using namespace std;
 #define PI 3.141592653589793238462
 #define MOD 1000000007
 #define REP(i,a,b) for (int i = a; i <= b; i++)
+#define ll long long
 #define US (unsigned)
 typedef long long LL;
 typedef pair<int, int> PII;

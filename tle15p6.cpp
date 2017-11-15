@@ -20,7 +20,28 @@ typedef vector<PII > VPII;
 typedef vector<VPII > VVPII;
 typedef map<int,int> MII;
 
+int n,m,q,visited[5005];
+vector<int> wins[5005];
+
+int dfs(int a,int b){
+
+}
+
+
 int main(){
   cin.sync_with_stdio(0);
   cin.tie(0);
+  cin>>n>>m>>q;
+  while(m--){
+    int a,b;
+    cin>>a>>b;
+    wins[a].push_back(b);
+  }
+  while(q--){
+    memset(visited,0,sizeof visited);
+    int a,b;
+    cin>>a>>b;
+    dfs(a,b);
+    win
+  }
 }

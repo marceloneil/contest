@@ -20,7 +20,19 @@ typedef vector<PII > VPII;
 typedef vector<VPII > VVPII;
 typedef map<int,int> MII;
 
+vector<pair<int,int>> roads[100005];
+
+int n,q;
 int main(){
   cin.sync_with_stdio(0);
   cin.tie(0);
+  cin>>n>>q;
+  for(int i =  1;i<=n;i++){
+    int a,b,c;
+    cin>>a>>b>>c;
+
+  }
+  while(q--){
+    
+  }
 }

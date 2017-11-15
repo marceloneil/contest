@@ -20,23 +20,40 @@ typedef vector<PII > VPII;
 typedef vector<VPII > VVPII;
 typedef map<int,int> MII;
 
+int theMap[103][103];
+int vis[103][103];
+int ans = 0;
 
-vector<int> slides[10004];
-int a,b;
-int count = 0;
-int dfs(int x, int y){
-  if()
+void dfs(int x,int y){
+  if(theMap[x][y] == 0 || vis[x][y]) return;
+  vis[x][y] = 1;
+  dfs(x+1,y);
+  dfs(x-1,y);
+  dfs(x,y+1);
+  dfs(x,y-1);
 }
 
 int main(){
   cin.sync_with_stdio(0);
   cin.tie(0);
-  int n;
-  cin>>n;
-  cin>>a>>b;
-  while(a != 0 && b != 0){
-    slides[a].push_back(b);
-    cin>>a>>b;
+  int r,c;
+  cin>>r>>c;
+  for(int i = 1; i <=r;i++){
+    string word;
+    cin>>word;
+    for(int a = 1; a<=c;a++){
+      if(word.at(a-1) == '.'){
+        theMap[i][a] = 1;
+      }
+    }
   }
-
+  for(int i = 1;i<=r;i++){
+    for(int a = 1; a<=c;a++){
+      if(theMap[i][a] == 1 && !vis[i][a]){
+        ans++;
+        dfs(i,a);
+      }
+    }
+  }
+  cout<<ans<<endl;
 }

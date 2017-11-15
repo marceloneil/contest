@@ -11,6 +11,7 @@ using namespace std;
 #define PI 3.141592653589793238462
 #define MOD 1000000007
 #define REP(i,a,b) for (int i = a; i <= b; i++)
+#define ll long long
 #define US (unsigned)
 typedef long long LL;
 typedef pair<int, int> PII;
@@ -20,7 +21,17 @@ typedef vector<PII > VPII;
 typedef vector<VPII > VVPII;
 typedef map<int,int> MII;
 
+
+int m;
+struct edge{
+  int ho, hey;
+  ho = 5;
+}yus;
+vector<edge> yep;
 int main(){
   cin.sync_with_stdio(0);
   cin.tie(0);
+  yep.push_back({4});
+  cout<<yep.front().hey<<endl;
+  cout<<yus.ho<<endl;
 }

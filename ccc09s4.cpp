@@ -68,6 +68,7 @@ int main(){
 			}
 		}
 	}
+  //this is actually a really slow method
   vector<int> totCost;
   for(int i = 0 ;US i < pencils.size();i++ ){
     totCost.push_back(pencils[i].S + dist[pencils[i].F]);

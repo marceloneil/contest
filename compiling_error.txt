@@ -1,0 +1,4 @@
+/home/splacorn/Desktop/contest/dmoj/ccc09s4v2.cpp: In function ‘int main()’:
+/home/splacorn/Desktop/contest/dmoj/ccc09s4v2.cpp:68:22: error: ‘>>’ should be ‘> >’ within a nested template argument list
+   queue< pair<int,int>> price; // price, city
+                      ^

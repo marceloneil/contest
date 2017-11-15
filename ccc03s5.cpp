@@ -21,6 +21,8 @@ typedef vector<PII > VPII;
 typedef vector<VPII > VVPII;
 typedef map<int,int> MII;
 
+
+//answer is the minimum of the maximum spanning tree between the destination cities and the starting city
 int edges[10005][10005];
 
 
@@ -37,15 +39,36 @@ void prim(int root){
     int cur = cur_pair.S;
     if (vis[cur]) continue;
     vis[cur] = 1;
-    //do what you want with edge (use parent[])
     for(int i = 1 ; i <=r;i++){
       if(edges[cur][i] != -1 && !vis[i]){
-        if (edges[cur][i] < dist[i]){
+        if (edges[cur][i] > dist[i]){
           dist[i] = edges[cur][i];
-          parent[i] = cur;
+          parent[i] = cur; // the mstedge of this node is the corresponding val in this idx of parent
           q.push(make_pair(dist[i],i));
         }
       }
     }
+  }
+}
+
+int main(){
+  memset(edges,-1,sizeof edges);
+  cin.sync_with_stdio(0);
+  cin.tie(0);
+  cin>>c>>r>>d;
+  for(int i = 1; i <=r;i++){
+    int x,y,w;
+    cin>>x>>y>>w;
+    edges[x][y] = w;
+    edges[y][x] = w;
+  }
+  for(int i = 1; i <=r;i++){
+    cout<<dist[parent[i]]<<endl;
+  }
+  stack<int> dest;
+  for(int i = 1; i <=d;i++){
+    int temp;
+    cin>>temp;
+    dest.push(temp);
   }
 }
