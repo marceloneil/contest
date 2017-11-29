@@ -1,53 +1,87 @@
-//we are using disjoint set for this
-//btw william, your slides for this structure has an error. you can't have an array ca;;ed rank because it clashes with a name from the namespace
-#include <iostream>
-#include <cstring> //memset
-#include <queue> //priority_queue
-#include <vector> //vector
+#include <bits/stdc++.h>
 using namespace std;
 
-const int maxn = 5005;
-int lead[maxn];
-int trank[maxn];
+#define MAXN 100005
+#define F first
+#define S second
+#define MP make_pair
+#define PB push_back
+#define INF 2147483647
+#define EPS 1e-9
+#define PI 3.141592653589793238462
+#define MOD 1000000007
+#define REP(i,a,b) for (int i = a; i <= b; i++)
+#define ll long long
+#define US (unsigned)
+typedef long long LL;
+typedef pair<int, int> PII;
+typedef vector<int> VI;
+typedef vector<VI > VVI;
+typedef vector<PII > VPII;
+typedef vector<VPII > VVPII;
+typedef map<int,int> MII;
 
-void make_set(int n){
-  lead[n] = n;
-  trank[n] = 1;
+int n,m;
+
+int lead[100005],setRank[100005];
+
+void make_set(int p){
+  lead[p] = p;
+  setRank[p] = 1;
 }
-
-int find(int n){
-  if (lead[n] == n) return n;
-  lead[n] = find(lead[n]);
-  return lead[n];
+int find(int p){
+  if(lead[p] == p) return p;
+  lead[p] = find(lead[p]);
+  return lead[p];
 }
-
-
-void merge(int a, int b){
-  a = find(a);
-  b = find(b);
-  if (a != b){
-    if (trank[a] > trank[b]) lead[b] = a;
+void merge(int p, int g){
+  p = find(p);
+  g = find(g);
+  if (p != g){
+    if (setRank[p] > setRank[g]) lead[g] = p;
     else{
-      lead[a] = b;
-      if (trank[a] == trank[b]) trank[b]++;
+      lead[p] = g;
+      if (setRank[p] == setRank[g]) setRank[g]++;
     }
   }
 }
+vector<pair<int,pair<int,int>>> edges;
 
+stack<int> kruskal(vector<pair<int,pair<int,int>> > theEdges){
+  sort(theEdges.begin(), theEdges.end(),greater<pair<int,pair<int,int>>>());
+  int iterCount = 1;
+  stack<int> temp;
 
-vector<pair<int, int> > adj[5005];
+  while(iterCount < n){
+    if(theEdges.empty()){
+      cout<<"Disconnected Graph"<<endl;
+      return stack<int>();
+    }
+    pair<int,pair<int,int>> edg = theEdges.back();theEdges.pop_back();
+    if(find(edg.S.F) != find(edg.S.S)){
+      iterCount++;
+      merge(edg.S.F,edg.S.S);
+      temp.push(edg.F);
+    }
+  }
+  return temp;
+}
+
 int main(){
-  int n,m;
+  cin.sync_with_stdio(0);
+  cin.tie(0);
   cin>>n>>m;
-
-  for(int i = 1 ; i <=m; i++){
+  for(int i = 1 ; i <=n;i++){
     make_set(i);
   }
-  //generate adj list
-  for(int f,s,i,c = 0; i < m; i ++){
-    cin>>f>>s>>c;
-    adj[f].push_back(make_pair(s,c));
-    adj[s].push_back(make_pair(f,c));
+  for(int i = 1;i<=m;i++){
+    int a,b;
+    cin>>a>>b;
+    edges.push_back({i,{a,b}});
   }
-
+  stack<int> mstEdges = kruskal(edges);
+  while(!mstEdges.empty()){
+    cout<<mstEdges.top()<<endl;
+    mstEdges.pop();
+  }
 }

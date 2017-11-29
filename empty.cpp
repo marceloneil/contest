@@ -6,7 +6,7 @@ using namespace std;
 #define S second
 #define MP make_pair
 #define PB push_back
-#define INF 2147483647
+#define INF 0x3f3f3f3f
 #define EPS 1e-9
 #define PI 3.141592653589793238462
 #define MOD 1000000007

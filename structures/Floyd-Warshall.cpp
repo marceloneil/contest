@@ -1,20 +1,56 @@
-#include <iostream>
-
+#include <bits/stdc++.h>
 using namespace std;
-int main(){
-  int n,e;//n = number of nodes, e = num edges
-  cin>>n>>e;
-  int arr[n][n];
-  while(e--){
-    int a,b,c; // from node a to b with cost c
-    cin>>a>>b>>c;
-    arr[a][b] = c;
-  }
-  for(int k = 0; k < n;k++){
-    for(int i = 0; i < n;i++){
-      for(int j =0;j<n;j++){
-        arr[i][j] = min(arr[i][j],arr[i][k] + arr[k][j]);
+
+#define MAXN 100005
+#define F first
+#define S second
+#define MP make_pair
+#define PB push_back
+#define INF 0x3f3f3f3f
+#define EPS 1e-9
+#define PI 3.141592653589793238462
+#define MOD 1000000007
+#define REP(i,a,b) for (int i = a; i <= b; i++)
+#define ll long long
+#define US (unsigned)
+typedef long long LL;
+typedef pair<int, int> PII;
+typedef vector<int> VI;
+typedef vector<VI > VVI;
+typedef vector<PII > VPII;
+typedef vector<VPII > VVPII;
+typedef map<int,int> MII;
+
+int n,w,p;
+int dist[101][101];
+void floydwarshall(){
+  for (int k = 1; k <=n;k++){
+    for (int i = 1; i <=n;i++){
+      for (int j = 1; j <=n;j++){
+        dist[i][j] = min(dist[i][j],dist[i][k]+dist[k][j]);
       }
     }
+  }
+}
+
+int main(){
+  cin.sync_with_stdio(0);
+  cin.tie(0);
+  //set the dist to INF first
+  memset(dist,INF,sizeof dist);
+  cin>>n>>w>>p;
+  //get the values and overwrite the INF vals from the dist matrix
+  for(int i = 1; i <=w;i++){
+    int a,b,c;
+    cin>>a>>b>>c;
+    dist[a][b] = c;
+    dist[b][a] = c;
+  }
+  //run the algorithm
+  floydwarshall();
+  for(int i = 1; i <=p;i++){
+    int a,b;
+    cin>>a>>b;
+    cout<<dist[a][b]<<endl;
   }
 }

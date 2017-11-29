@@ -17,8 +17,14 @@ int main(){
   for(int i = 0; i + t < n; i++){
     int distNeeded;
     if(arr[i+t] <= 0){//negative range
+      if(arr[i+t+1] <0){
+        continue;
+      }
       distNeeded = -arr[i];
     }else if(arr[i] >= 0 ){//positive range
+      if(arr[i-1] >0){
+        continue;
+      }
       distNeeded = arr[i + t];
     }else{
       int smaller = min(arr[i],arr[i+t]);

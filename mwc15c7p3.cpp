@@ -6,11 +6,12 @@ using namespace std;
 #define S second
 #define MP make_pair
 #define PB push_back
-#define INF 2147483647
+#define INF 0x3f3f3f3f
 #define EPS 1e-9
 #define PI 3.141592653589793238462
 #define MOD 1000000007
 #define REP(i,a,b) for (int i = a; i <= b; i++)
+#define ll long long
 #define US (unsigned)
 typedef long long LL;
 typedef pair<int, int> PII;
@@ -20,18 +21,15 @@ typedef vector<PII > VPII;
 typedef vector<VPII > VVPII;
 typedef map<int,int> MII;
 
-set<string> combos;
-int n,m,s,l,r,i,arr[24];
+int n,m,s,l,r,p;
+char arr[22];
 int main(){
-  scanf("%d %d", &n,&m);
-  scanf("%d %d %d %d",&s,&l,&r,&i);
-  for(int a = 1; a <= n;a++){
-    scanf("%d", &arr[a]);
-  }
-
-//hmmm I'm not so sure how to do this.
-
-  for(int k = 0; k < n;k++){
-    combos.insert(
+  cin.sync_with_stdio(0);
+  cin.tie(0);
+  cin>>n>>m>>s>>l>>r>>p;
+  string temp;
+  cin>>temp;
+  for(int i = 1; i <=n;i++){
+    arr[i] = temp[i];
   }
 }

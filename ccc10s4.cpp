@@ -21,17 +21,79 @@ typedef vector<PII > VPII;
 typedef vector<VPII > VVPII;
 typedef map<int,int> MII;
 
+int n,m;
 
-int m;
-struct edge{
-  int ho, hey;
-  ho = 5;
-}yus;
-vector<edge> yep;
+int lead[100005],setRank[100005];
+
+void make_set(int p){
+  lead[p] = p;
+  setRank[p] = 1;
+}
+int find(int p){
+  if(lead[p] == p) return p;
+  lead[p] = find(lead[p]);
+  return lead[p];
+}
+void merge(int p, int g){
+  p = find(p);
+  g = find(g);
+  if (p != g){
+    if (setRank[p] > setRank[g]) lead[g] = p;
+    else{
+      lead[p] = g;
+      if (setRank[p] == setRank[g]) setRank[g]++;
+    }
+  }
+}
+vector<pair<int,pair<int,int>>> edges;
+
+stack<int> kruskal(vector<pair<int,pair<int,int>> > theEdges){
+  sort(theEdges.begin(), theEdges.end(),greater<pair<int,pair<int,int>>>());
+  int iterCount = 1;
+  stack<int> temp;
+
+  while(iterCount < n){
+    if(theEdges.empty()){
+      cout<<"Disconnected Graph"<<endl;
+      return stack<int>();
+    }
+    pair<int,pair<int,int>> edg = theEdges.back();theEdges.pop_back();
+    if(find(edg.S.F) != find(edg.S.S)){
+      iterCount++;
+      merge(edg.S.F,edg.S.S);
+      temp.push(edg.F);
+    }
+  }
+  return temp;
+}
+
 int main(){
   cin.sync_with_stdio(0);
   cin.tie(0);
-  yep.push_back({4});
-  cout<<yep.front().hey<<endl;
-  cout<<yus.ho<<endl;
+  cin>>n;
+  for(int i = 1; i <=n;i++){
+    int numEdges;
+    cin>>numEdges;
+    vector<int> foundNode;
+    for(int a = 1; a <=numEdges;a++){
+      int temp;
+      cin>>temp;
+      foundNode.push_back(temp);
+    }
+
+  }
+  /*cin>>n>>m;
+  for(int i = 1 ; i <=n;i++){
+    make_set(i);
+  }
+  for(int i = 1;i<=m;i++){
+    int a,b;
+    cin>>a>>b;
+    edges.push_back({i,{a,b}});
+  }
+  stack<int> mstEdges = kruskal(edges);
+  while(!mstEdges.empty()){
+    cout<<mstEdges.top()<<endl;
+    mstEdges.pop();
+  }*/
 }

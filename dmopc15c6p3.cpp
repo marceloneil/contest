@@ -8,6 +8,10 @@ int prefixSum[200005];
 int main(){
   int n,m,k;
   cin>>n>>m>>k;
+  if(k == 0){
+    cout<< 0<<endl;
+    return 0;
+  }
   for(int i = 1; i <= m;i++){
     arr[i] = n;
   }
@@ -26,6 +30,7 @@ int main(){
       prefixSum[i] = prefixSum[i-1] + arr[i];
     }
   }
+  //find the smallest range in which the sum is at least k
   for(int i =0;i<=n;i++){
     for(int a = 1; a + i <=n;a++){
       if(prefixSum[a+i] - prefixSum[a] >= k){
