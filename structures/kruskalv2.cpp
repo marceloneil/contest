@@ -53,24 +53,19 @@ void init(){ // DO NOT FORGET THIS PLEASE
   }
 }
 
-stack<int> kruskal(vector<pair<int,pair<int,int>> > theEdges){
+void kruskal(vector<pair<int,pair<int,int>> > theEdges){
   sort(theEdges.begin(), theEdges.end(),greater<pair<int,pair<int,int>>>());
   int iterCount = 1;
-  stack<int> temp;
-
   while(iterCount < n){
     if(theEdges.empty()){
       cout<<"Disconnected Graph"<<endl;
-      return stack<int>();
     }
     pair<int,pair<int,int>> edg = theEdges.back();theEdges.pop_back();
     if(find(edg.S.F) != find(edg.S.S)){
       iterCount++;
       merge(edg.S.F,edg.S.S);
-      temp.push(edg.F);
     }
   }
-  return temp;
 }
 
 int main(){

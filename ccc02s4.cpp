@@ -7,6 +7,7 @@ using namespace std;
 
 int dp[105][105];
 string names[105];
+int arr[105];
 
 int maxNum(vector<int> sec){
   int max = sec[0];
@@ -21,7 +22,6 @@ int maxNum(vector<int> sec){
 int main(){
   int m,n;
   cin>>m>>n;
-  int arr[n];
   for(int i = 0;i<n;i++){
     cin>>names[i];
     cin>>arr[i];

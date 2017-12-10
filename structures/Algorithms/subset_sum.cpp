@@ -1,59 +1,49 @@
-/*
-    Given an integer x, and a set of numbers.
-
-    Asking whether it is possible that a subset
-        of the numbers can sum up to x
-*/
-
 #include <bits/stdc++.h>
-
 using namespace std;
+#include<iostream>
 
-vector<int> numbers, subA, subB;
-vector<int> posA, posB;
-int N, x;
+int n,d,w[10],used[10],cnt=0;
+int cs = 0; // cs=Current Sum
 
-void gen_numbers(vector<int> num, int index, int sum, bool a){
-    if (index == num.size()){
-        if (a)
-            posA.push_back(sum);
-        else
-            posB.push_back(sum);
-        return;
+void subset(int k)
+{
+    if (k >= n) return;  // boundry check
+    int i;
+    used[k] = 1; // use element k
+    cs += w[k];
+
+    if(cs == d) {
+        cout<<"\n\nSolution " << ++cnt << " is:";
+        for(i=0;i <= k;i++)
+            if(used[i]==1)
+                cout<<w[i]<<" ";
     }
+    if (cs < d)  // only when current sum is not enough
+        subset(k + 1);
 
-    gen_numbers(num, index + 1, sum + num[index], a);
-    gen_numbers(num, index + 1, sum, a);
-
-    return;
+    used[k] = 0; // not use element k
+    cs -= w[k];
+    subset(k+1);
 }
 
 int main(){
-    cin >> N >> x;
+    int sum=0,i;
 
-    for (int i=0, cur; i<N; i++){
-        cin >> cur;
-        numbers.push_back(cur);
-    }
+    cout<<"enter n\n";
+    cin>>n;
 
-    int mid = N / 2;
+    cout<<"enter "<<n<<" elements\n";
+    for(i=0;i<n;i++)
+    cin>>w[i];
 
-    for (int i=0; i<mid; i++) subA.push_back(numbers[i]);
-    for (int i=mid; i<N; i++) subB.push_back(numbers[i]);
+    for(i=0;i<n;i++)
+    sum+=w[i];
 
-    gen_numbers(subA, 0, 0, true);
-    gen_numbers(subB, 0, 0, false);
-
-    for (int a : posA){
-        for (int b : posB){
-            if (a + b == x){
-                cout << "possible" << endl;
-                return;
-            }
-        }
-    }
-
-    cout << "impossible" << endl;
-
-    return 0;
+    cout<<"enter value of sum\n";
+    cin>>d;
+    cs = 0;
+    if(sum<d)
+        cout<<"INVALID SOLUTION\n";
+    else
+        subset(0);
 }

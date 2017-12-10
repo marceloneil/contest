@@ -87,5 +87,5 @@ int main(){
   dfs(restaurants.top());
   int firstIdx = dfs2(restaurants.top(),0).S;
   memset(vis2, 0,sizeof vis2);
-  cout<<((theCount*2) - dfs2(firstIdx,0).F)<<endl;
+  cout<<((theCount*2) - dfs2(firstIdx,0).F)<<endl;  
 }

@@ -21,32 +21,34 @@ typedef vector<PII > VPII;
 typedef vector<VPII > VVPII;
 typedef map<int,int> MII;
 
-int t,n;
-double x,y,r[105],c[105];
+int l,d,x,y;
+
+int vals[1003][1003];
+int dp[1003][1003];
+
 int main(){
   cin.sync_with_stdio(0);
   cin.tie(0);
-  cin>>t>>n;
-  for(int i = 1; i < n;i++){
-    cin>>r[i]>>c[i];
-  }
-  cin>>x>>y;
-  double low = 0;
-  double hi = t;
-  int count = 14;
-  while(count--){
-    double mid = (hi-low)/2;
-    int a = low + (mid/2);
-    int b = hi-(mid/2);
-    if((((t - a)/x) + (a/y)) < (((t - b)/x) + (b/y))){
-      hi = mid;
-      cout<<low<<" "<<hi<<endl;
-      cout<<(((t - a)/x) + (a/y))<<endl;
-    }else{
-      cout<<low<<" "<<hi<<endl;
-      cout<<(((t - b)/x) + (b/y))<<endl;
-      low = mid;
+  cin>>l>>d;
+  for(int i = 1; i <=d;i++){
+    for(int a = 1; a <=l;a++){
+      cin>>vals[i][a];
     }
   }
-  cout<< (low + (hi - low)/2)<<endl;
+  cin>>x>>y;
+  memset(dp,INF,sizeof dp);
+  dp[1][0] = 0;
+  dp[0][1] = 0;
+
+  for(int i = 1; i <=d;i++){
+    for(int a = 1; a <=l;a++){
+      dp[i][a] = vals[i][a] +  min(dp[i-1][a], dp[i][a-1]);
+    }
+  }
+  for(int i = 2; i <=d;i++){
+    for(int a = l; a >=1;a--){
+      dp[i][a] = min(dp[i][a],vals[i][a] + min(dp[i-1][a], dp[i][a+1]));
+    }
+  }
+  cout<<dp[x+ 1][y+1]<<endl;
 }

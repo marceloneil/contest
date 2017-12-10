@@ -21,32 +21,35 @@ typedef vector<PII > VPII;
 typedef vector<VPII > VVPII;
 typedef map<int,int> MII;
 
-int t,n;
-double x,y,r[105],c[105];
+int dp[10003][1003]; // time left to save, nth student
+int v[10003],s[10003],t[10003];
 int main(){
   cin.sync_with_stdio(0);
   cin.tie(0);
-  cin>>t>>n;
-  for(int i = 1; i < n;i++){
-    cin>>r[i]>>c[i];
+  int n;
+  cin>>n;
+  for(int i = 1; i <=n;i++){
+    cin>>v[i]>>s[i]>>t[i];
   }
-  cin>>x>>y;
-  double low = 0;
-  double hi = t;
-  int count = 14;
-  while(count--){
-    double mid = (hi-low)/2;
-    int a = low + (mid/2);
-    int b = hi-(mid/2);
-    if((((t - a)/x) + (a/y)) < (((t - b)/x) + (b/y))){
-      hi = mid;
-      cout<<low<<" "<<hi<<endl;
-      cout<<(((t - a)/x) + (a/y))<<endl;
-    }else{
-      cout<<low<<" "<<hi<<endl;
-      cout<<(((t - b)/x) + (b/y))<<endl;
-      low = mid;
+  for(int i =1;i<=n;i++){
+    for(int a = 1 ; a <=1000;a++){
+      if(t[i] >= i){
+        if(a-s[i] >=1){
+          dp[i][a] = max(dp[i-1][a], dp[i-1][a-s[i]] + v[i]);
+        }
+      }else{
+        dp[i][a] = dp[i-1][a];
+      }
     }
   }
-  cout<< (low + (hi - low)/2)<<endl;
+  /*
+  for(int i = 1; i <=n;i++){
+    for(int a = 1; a <=90;a++){
+      cout<<dp[i][a]<<" ";
+    }
+    cout<<endl;
+  }*/
+
+
+  cout<<dp[n][1000]<<endl;
 }

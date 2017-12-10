@@ -6,11 +6,13 @@ using namespace std;
 #define S second
 #define MP make_pair
 #define PB push_back
-#define INF 2147483647
+#define INF 0x3f3f3f3f
 #define EPS 1e-9
 #define PI 3.141592653589793238462
 #define MOD 1000000007
 #define REP(i,a,b) for (int i = a; i <= b; i++)
+#define ll long long
+#define US (unsigned)
 typedef long long LL;
 typedef pair<int, int> PII;
 typedef vector<int> VI;
@@ -18,19 +20,22 @@ typedef vector<VI > VVI;
 typedef vector<PII > VPII;
 typedef vector<VPII > VVPII;
 typedef map<int,int> MII;
+int memo[52];
+int arr[3][52];
+int calc(int mask, int idx){
+
+}
 
 int main(){
-  int n;
-  int arr[1006][2];
-  int dp[1006];
-  scanf("%d",&n);
-  for(int i = 0 ; i < n;i++){
-    scanf("%d",&arr[i][0]);
-    scanf("%d",&arr[i][1]);
+  cin.sync_with_stdio(0);
+  cin.tie(0);
+  int n,q;
+  cin>>n>>q;
+  for(int i = 1; i <=n;i++){
+    string temp;
+    cin>>temp;
+    for(int a = 1; a <=q;a++){
+      arr[i][a] = temp.at(a-1);
+    }
   }
-  for(int i = 0 ; i < n;i++){
-    dp[i] = max(dp[i-1] + max(), ;
-    if(dp[])
-  }
-  cout<<dp[1]<<endl;
 }

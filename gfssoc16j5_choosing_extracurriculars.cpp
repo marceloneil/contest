@@ -21,32 +21,24 @@ typedef vector<PII > VPII;
 typedef vector<VPII > VVPII;
 typedef map<int,int> MII;
 
-int t,n;
-double x,y,r[105],c[105];
+int vals[4][100005];
+int dp[4][100005];
+int n;
+void calc(){
+  memset(dp, -1, sizeof dp);
+  for(int i = 0; i <4;i++){
+    for(int a = 1; a<=n;a++){
+      dp[i][a] = max(dp[i][a-1], dp[i-1][a] + vals[i][a]);
+    }
+  }
+}
 int main(){
   cin.sync_with_stdio(0);
   cin.tie(0);
-  cin>>t>>n;
-  for(int i = 1; i < n;i++){
-    cin>>r[i]>>c[i];
+  cin>>n;
+  for(int i = 1; i <=n;i++){
+    cin>>vals[0][i]>>vals[1][i]>>vals[2][i]>>vals[3][i];
   }
-  cin>>x>>y;
-  double low = 0;
-  double hi = t;
-  int count = 14;
-  while(count--){
-    double mid = (hi-low)/2;
-    int a = low + (mid/2);
-    int b = hi-(mid/2);
-    if((((t - a)/x) + (a/y)) < (((t - b)/x) + (b/y))){
-      hi = mid;
-      cout<<low<<" "<<hi<<endl;
-      cout<<(((t - a)/x) + (a/y))<<endl;
-    }else{
-      cout<<low<<" "<<hi<<endl;
-      cout<<(((t - b)/x) + (b/y))<<endl;
-      low = mid;
-    }
-  }
-  cout<< (low + (hi - low)/2)<<endl;
+  calc();
+  cout<<dp[3][n];
 }

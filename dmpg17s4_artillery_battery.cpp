@@ -21,32 +21,22 @@ typedef vector<PII > VPII;
 typedef vector<VPII > VVPII;
 typedef map<int,int> MII;
 
-int t,n;
-double x,y,r[105],c[105];
+int arr[12][11];
+int x,y;
 int main(){
   cin.sync_with_stdio(0);
   cin.tie(0);
-  cin>>t>>n;
-  for(int i = 1; i < n;i++){
-    cin>>r[i]>>c[i];
-  }
-  cin>>x>>y;
-  double low = 0;
-  double hi = t;
-  int count = 14;
-  while(count--){
-    double mid = (hi-low)/2;
-    int a = low + (mid/2);
-    int b = hi-(mid/2);
-    if((((t - a)/x) + (a/y)) < (((t - b)/x) + (b/y))){
-      hi = mid;
-      cout<<low<<" "<<hi<<endl;
-      cout<<(((t - a)/x) + (a/y))<<endl;
-    }else{
-      cout<<low<<" "<<hi<<endl;
-      cout<<(((t - b)/x) + (b/y))<<endl;
-      low = mid;
+  for(int i = 1; i <=10;i++){
+    string temp;
+    cin>>temp;
+    for(int a = 1; a <=9;a++){
+      if(temp.at(a-1) == 'E'){
+        arr[i][a] = 1;
+      }else if(temp.at(a-1) == 'C'){
+        x = i;
+        y = a;
+      }
     }
   }
-  cout<< (low + (hi - low)/2)<<endl;
+  
 }

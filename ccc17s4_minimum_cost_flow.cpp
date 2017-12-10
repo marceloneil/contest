@@ -21,17 +21,18 @@ typedef vector<PII > VPII;
 typedef vector<VPII > VVPII;
 typedef map<int,int> MII;
 
-int n,m,d;
-struct nxt{
-  int b,c;
+int n,m,d,ans;
+struct edge{
+  int st,end,c;
   bool a;
-  nxt(int bb, int cc, bool aa){
-    b = bb;
+  edge(int ss, int bb, int cc, bool aa){
+    st = ss;
+    end = bb;
     c = cc;
     a = aa;
-  }
+  };
 };
-vector<nxt> edges[100003]; // b, cost, activated
+vector<edge> edges; // b, cost, activated
 
 
 
@@ -49,50 +50,54 @@ int find(int p){
 void merge(int p, int g){
   p = find(p);
   g = find(g);
-  if (p != g){
-    if (setRank[p] > setRank[g]) lead[g] = p;
-    else{
+  if (p != g){ // not in the same set
+    if (setRank[p] > setRank[g]){ // marge the smaller set to the larger one
+      lead[g] = p;
+    }else{
       lead[p] = g;
       if (setRank[p] == setRank[g]) setRank[g]++;
     }
   }
 }
 
-stack<int> kruskal(vector<pair<int,pair<int,int>> > theEdges){
-  sort(theEdges.begin(), theEdges.end(),greater<pair<int,pair<int,int>>>());
-  int iterCount = 1;
-  stack<int> temp;
-
-  while(iterCount < n){
-    if(theEdges.empty()){
-      cout<<"Disconnected Graph"<<endl;
-      return stack<int>();
-    }
-    pair<int,pair<int,int>> edg = theEdges.back();theEdges.pop_back();
-    if(find(edg.S.F) != find(edg.S.S)){
-      iterCount++;
-      merge(edg.S.F,edg.S.S);
-      temp.push(edg.F);
-    }
-  }
-  return temp;
+bool compareByLength(const edge &a, const edge &b){
+    return a.c < b.c;
 }
 
-
+void kruskal(vector<edge> theEdges){
+  sort(theEdges.begin(), theEdges.end(),compareByLength);
+  int iterCount = 0;
+  for(int i = 0; US i < theEdges.size();i++){
+    if(iterCount==n-1)break;
+    edge edg = theEdges[i];
+    if(find(edg.st) != find(edg.end)){
+      if(edg.a == 0){ // right now I am turning on off pipes. I may need to turn off pipes that started out as on
+        ans++;
+      }
+      iterCount++;
+      merge(edg.st,edg.end);
+    }
+  }
+}
 
 int main(){
   cin.sync_with_stdio(0);
   cin.tie(0);
   cin>>n>>m>>d;
+  for(int i = 1 ; i <=n;i++){
+    make_set(i);
+  }
   for(int i = 1; i <=m;i++){
     int a,b,c;
     cin>>a>>b>>c;
-    if(i <n){
-      edges[a].PB(nxt(b,c,1));
-      edges[b].PB(nxt(a,c,1));
+    if(i<n){
+      edges.PB(edge(a,b,c,1));
+      edges.PB(edge(b,a,c,1));
     }else{
-      edges[a].PB(nxt(b,c,0));
-      edges[b].PB(nxt(a,c,0));
+      edges.PB(edge(a,b,c,0));
+      edges.PB(edge(b,a,c,0));
     }
   }
+  kruskal(edges);
+
 }

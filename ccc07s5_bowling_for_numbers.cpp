@@ -21,32 +21,34 @@ typedef vector<PII > VPII;
 typedef vector<VPII > VVPII;
 typedef map<int,int> MII;
 
-int t,n;
-double x,y,r[105],c[105];
+int arr[30003];
+int dp[503][30003];
+int n,k,w;
+
 int main(){
   cin.sync_with_stdio(0);
   cin.tie(0);
-  cin>>t>>n;
-  for(int i = 1; i < n;i++){
-    cin>>r[i]>>c[i];
-  }
-  cin>>x>>y;
-  double low = 0;
-  double hi = t;
-  int count = 14;
-  while(count--){
-    double mid = (hi-low)/2;
-    int a = low + (mid/2);
-    int b = hi-(mid/2);
-    if((((t - a)/x) + (a/y)) < (((t - b)/x) + (b/y))){
-      hi = mid;
-      cout<<low<<" "<<hi<<endl;
-      cout<<(((t - a)/x) + (a/y))<<endl;
-    }else{
-      cout<<low<<" "<<hi<<endl;
-      cout<<(((t - b)/x) + (b/y))<<endl;
-      low = mid;
+  int t;
+  cin>>t;
+  while(t--){
+    cin>>n>>k>>w;
+    for(int i =1;i<=n;i++){
+      cin>>arr[i];
+      dp[0][i] = dp[0][i-1] + arr[i];
+      if(i > w){
+        dp[0][i] -= arr[i-w];
+      }
     }
+    for(int i = 1; i <=k;i++){
+      for(int a = 1; a <=w;a++)dp[i][a] = dp[i-1][a];
+      for(int a = w + 1; a <=n;a++){
+        if(i == 1){
+          dp[i][a] = max(dp[i][a-1],dp[0][a]);
+        }else{
+          dp[i][a] = max(dp[i-1][a-w] + dp[0][a], dp[i][a-1]);
+        }
+      }
+    }
+    cout<<dp[k][n]<<endl;
   }
-  cout<< (low + (hi - low)/2)<<endl;
 }

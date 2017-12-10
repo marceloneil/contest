@@ -59,7 +59,7 @@ fenwick_tree<LL> t2(MAXN);
 int main() {
 
   scanf("%d %d", &N, &M);
-  for(int i = 1; i <=M;i++){
+  for(int i = 1; i <=N;i++){
     scanf("%d", &arr[i]);
     t2.add(arr[i],1);
     t.set(i,arr[i]);

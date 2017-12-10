@@ -21,32 +21,26 @@ typedef vector<PII > VPII;
 typedef vector<VPII > VVPII;
 typedef map<int,int> MII;
 
-int t,n;
-double x,y,r[105],c[105];
+int dp[5285],clubs[34];
 int main(){
   cin.sync_with_stdio(0);
   cin.tie(0);
-  cin>>t>>n;
-  for(int i = 1; i < n;i++){
-    cin>>r[i]>>c[i];
+
+  int d,c;
+  cin>>d>>c;
+  for(int i = 1; i <=c;i++){
+    cin>>clubs[i];
   }
-  cin>>x>>y;
-  double low = 0;
-  double hi = t;
-  int count = 14;
-  while(count--){
-    double mid = (hi-low)/2;
-    int a = low + (mid/2);
-    int b = hi-(mid/2);
-    if((((t - a)/x) + (a/y)) < (((t - b)/x) + (b/y))){
-      hi = mid;
-      cout<<low<<" "<<hi<<endl;
-      cout<<(((t - a)/x) + (a/y))<<endl;
-    }else{
-      cout<<low<<" "<<hi<<endl;
-      cout<<(((t - b)/x) + (b/y))<<endl;
-      low = mid;
+  memset(dp, INF, sizeof dp);
+  dp[1] = 0;
+  for(int i = 1; i <=d;i++){
+    for(int a = 1; a <=c;a++){
+      dp[i + clubs[a]] = min(dp[i + clubs[a]], dp[i] + 1);
     }
   }
-  cout<< (low + (hi - low)/2)<<endl;
+  if(dp[d+1] == INF){
+    cout<<"Roberta acknowledges defeat."<<endl;
+    return 0;
+  }
+  cout<<"Roberta wins in " + to_string(dp[d+1]) + " strokes."<<endl;
 }

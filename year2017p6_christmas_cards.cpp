@@ -21,32 +21,33 @@ typedef vector<PII > VPII;
 typedef vector<VPII > VVPII;
 typedef map<int,int> MII;
 
-int t,n;
-double x,y,r[105],c[105];
+int dp[5005];
+int cards[5005];
+int cost[5005];
+void seeCheaper(int a){
+  if(cards[a] == 0){
+    return;
+  }
+  if(cost[a] == 0){
+
+  }
+  for(int i = 1; i <=cards[a];i++){
+    dp[a + i] = min(dp[a + i],dp[a] + cost[a]);
+  }
+}
 int main(){
   cin.sync_with_stdio(0);
   cin.tie(0);
-  cin>>t>>n;
-  for(int i = 1; i < n;i++){
-    cin>>r[i]>>c[i];
+
+  int n;
+  cin>>n;
+  for(int i = 1; i <=n;i++){
+    cin>>cost[i]>>cards[i];
   }
-  cin>>x>>y;
-  double low = 0;
-  double hi = t;
-  int count = 14;
-  while(count--){
-    double mid = (hi-low)/2;
-    int a = low + (mid/2);
-    int b = hi-(mid/2);
-    if((((t - a)/x) + (a/y)) < (((t - b)/x) + (b/y))){
-      hi = mid;
-      cout<<low<<" "<<hi<<endl;
-      cout<<(((t - a)/x) + (a/y))<<endl;
-    }else{
-      cout<<low<<" "<<hi<<endl;
-      cout<<(((t - b)/x) + (b/y))<<endl;
-      low = mid;
-    }
+  memset(dp, INF, sizeof dp);
+  dp[1] = 0;
+  for(int i = 1; i <=n;i++){
+    seeCheaper(i);
   }
-  cout<< (low + (hi - low)/2)<<endl;
+  cout<<dp[n]<<endl;
 }

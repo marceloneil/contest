@@ -13,13 +13,24 @@ using namespace std;
 #define REP(i,a,b) for (int i = a; i <= b; i++)
 #define ll long long
 #define US (unsigned)
-#define all(x) x.begin(), x.end()
-#define MT make_tuple
+typedef long long LL;
 typedef pair<int, int> PII;
 typedef vector<int> VI;
+typedef vector<VI > VVI;
+typedef vector<PII > VPII;
+typedef vector<VPII > VVPII;
 typedef map<int,int> MII;
 
-int main(){
-  cin.sync_with_stdio(0);
-  cin.tie(0);
+void answer(int S[], int D[]);
+int tryCombination(int S[]);
+int init();
+
+int curr [5000], corr [5000], last, current, high, low, mid, cur, temp;
+bool vis [5000], flag = false;
+
+void exploreCave(int N) {
+  int cur = tryCombination(curr);
+  while(cur != -1){
+    
+  }
 }

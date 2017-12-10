@@ -1,5 +1,3 @@
-//lol I didn't event try and test this solution
-
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -8,11 +6,12 @@ using namespace std;
 #define S second
 #define MP make_pair
 #define PB push_back
-#define INF 2147483647
+#define INF 0x3f3f3f3f
 #define EPS 1e-9
 #define PI 3.141592653589793238462
 #define MOD 1000000007
 #define REP(i,a,b) for (int i = a; i <= b; i++)
+#define ll long long
 #define US (unsigned)
 typedef long long LL;
 typedef pair<int, int> PII;
@@ -22,18 +21,17 @@ typedef vector<PII > VPII;
 typedef vector<VPII > VVPII;
 typedef map<int,int> MII;
 
-int dp[12][103], sizes[12];
-
+vector<int> edges[1000003];
 int main(){
-  int n,w;
-  scanf("%d %d",&n,&w);
-  for(int i =1;i<=w;i++){
-    scanf("%d",&sizes[i]);
+  cin.sync_with_stdio(0);
+  cin.tie(0);
+
+  int n,m;
+  cin>>n>>m;
+  for(int i = 1; i <=m;i++){
+    int a, b;
+    cin>>a>>b;
+    edges[a].PB(b);
+    edges[b].PB(a);
   }
-  for(int a = 1; a <=w;a++){
-    for(int i = 1; i <=n;i++){
-      dp[a][i] = min(dp[a-1][i-sizes[a]] + 1, dp[a-1][i]);
-    }
-  }
-  printf("%d", dp[w][n]);
 }
