@@ -35,7 +35,7 @@ int main(){
   for(int i = 1; i <=n;i++){
     cin>>arr[i];
     while(!minQ.empty() && minQ.back() > arr[i]) minQ.pop_back();
-    while(!minQ.empty() && maxQ.back() < arr[i]) maxQ.pop_back();
+    while(!maxQ.empty() && maxQ.back() < arr[i]) maxQ.pop_back();
     minQ.push_back(arr[i]);
     maxQ.push_back(arr[i]);
     while (maxQ.front() - minQ.front() > k) {

@@ -19,7 +19,19 @@ using namespace std;
 typedef pair<int, int> PII;
 typedef vector<int> VI;
 
+int arr[1005];
 int main(){
   cin.sync_with_stdio(0);
   cin.tie(0);
+
+  int n,m,a,b,c;
+  cin>>n>>m>>a>>b>>c;
+  for(int i = 1; i <=n;i++){
+    int temp;
+    cin>>temp;
+    arr[temp]++;
+  }
+  for(int i = 1; i <=m;i++){
+      
+  }
 }

@@ -21,13 +21,15 @@ typedef vector<PII > VPII;
 typedef vector<VPII > VVPII;
 typedef map<int,int> MII;
 
-int n,arr[1000005],k;
+int arr[1000005],k;
+ll n;
 
 int main(){
   cin.sync_with_stdio(0);
   cin.tie(0);
 
   cin>>n>>k;
+  memset(arr, INF,sizeof arr);
   for(int i = 1; i <=n;i++){
     cin>>arr[i];
   }

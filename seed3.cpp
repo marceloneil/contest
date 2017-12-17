@@ -13,33 +13,32 @@ using namespace std;
 #define REP(i,a,b) for (int i = a; i <= b; i++)
 #define ll long long
 #define US (unsigned)
-typedef long long LL;
+#define vall(x) x.begin(), x.end()
+#define aall(x) begin(x), end(x)
+#define MT make_tuple
 typedef pair<int, int> PII;
 typedef vector<int> VI;
-typedef vector<VI > VVI;
-typedef vector<PII > VPII;
-typedef vector<VPII > VVPII;
-typedef map<int,int> MII;
 
-int n,m,c;
-int val[10004], weight[10004];
-int dp[2][10004]; // 0 = kill, 1 = live
+int diffArr[100005];
+int arr[100005];
 
-// max number of ghost killed first
-// then max amount of magic remaining
+int ans;
 int main(){
   cin.sync_with_stdio(0);
   cin.tie(0);
-  cin>>n>>c;
-  for(int i= 1;i<=n;i++){
-    cin>>weight[i]>>val[i];
+  int i,n,j;
+  cin>>i>>n>>j;
+  for(int a = 1; a <=j;a++){
+    int x,c,v;
+    cin>>x>>c>>v;
+    diffArr[x]+=v;
+    diffArr[c+1]-=v;
   }
-  //memset(dp,-1,sizeof dp);
-  int cur = 0;
-  dp[0][c] = 0;
-  for(int i = 1;i<=n;i++){
-    if(){
-
+  for(int a=1;a<=j;a++){
+    arr[a] = arr[a-1] + diffArr[a];
+    if(arr[a] >=n){
+      ans++;
     }
   }
+  cout<<i-ans;
 }

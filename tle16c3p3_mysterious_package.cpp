@@ -13,33 +13,37 @@ using namespace std;
 #define REP(i,a,b) for (int i = a; i <= b; i++)
 #define ll long long
 #define US (unsigned)
-typedef long long LL;
+#define vall(x) x.begin(), x.end()
+#define aall(x) begin(x), end(x)
+#define MT make_tuple
 typedef pair<int, int> PII;
 typedef vector<int> VI;
-typedef vector<VI > VVI;
-typedef vector<PII > VPII;
-typedef vector<VPII > VVPII;
-typedef map<int,int> MII;
+int n,x,y;
 
-int n,m,c;
-int val[10004], weight[10004];
-int dp[2][10004]; // 0 = kill, 1 = live
+struct aclass{
+  VI p;
+  aclass(VI pp){
+    p = pp;
+  };
+};
 
-// max number of ghost killed first
-// then max amount of magic remaining
+void dfs(int last){
+
+}
+vector<aclass> allClass;
 int main(){
   cin.sync_with_stdio(0);
   cin.tie(0);
-  cin>>n>>c;
-  for(int i= 1;i<=n;i++){
-    cin>>weight[i]>>val[i];
-  }
-  //memset(dp,-1,sizeof dp);
-  int cur = 0;
-  dp[0][c] = 0;
+  cin>>n>>x>>y;
   for(int i = 1;i<=n;i++){
-    if(){
-
+    int p,s;
+    cin>>p>>s;
+    VI pp;
+    for(int a = 1; a<=s;a++){
+      int temp;
+      cin>>temp;
+      pp.PB(temp);
     }
+    allClass.PB(pp);
   }
 }

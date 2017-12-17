@@ -19,7 +19,24 @@ using namespace std;
 typedef pair<int, int> PII;
 typedef vector<int> VI;
 
+vector<pair<int,int>> edges[100005];
 int main(){
   cin.sync_with_stdio(0);
   cin.tie(0);
+
+  int n;
+  cin>>n;
+  for(int i = 1;i<n;i++){
+    int a,b;
+    char c;
+    cin>>a>>b>>c;
+    if(c == 'r'){
+      edges[a].PB({b,1});
+      edges[b].PB({a,1});
+    }else{
+      edges[a].PB({b,0});
+      edges[b].PB({a,0});
+    }
+  }
+  
 }

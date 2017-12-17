@@ -13,33 +13,29 @@ using namespace std;
 #define REP(i,a,b) for (int i = a; i <= b; i++)
 #define ll long long
 #define US (unsigned)
-typedef long long LL;
+#define vall(x) x.begin(), x.end()
+#define aall(x) begin(x), end(x)
+#define MT make_tuple
 typedef pair<int, int> PII;
 typedef vector<int> VI;
-typedef vector<VI > VVI;
-typedef vector<PII > VPII;
-typedef vector<VPII > VVPII;
-typedef map<int,int> MII;
 
-int n,m,c;
-int val[10004], weight[10004];
-int dp[2][10004]; // 0 = kill, 1 = live
-
-// max number of ghost killed first
-// then max amount of magic remaining
+// I have to use ford fukerson and max flow to solve this problem
 int main(){
   cin.sync_with_stdio(0);
   cin.tie(0);
-  cin>>n>>c;
-  for(int i= 1;i<=n;i++){
-    cin>>weight[i]>>val[i];
-  }
-  //memset(dp,-1,sizeof dp);
-  int cur = 0;
-  dp[0][c] = 0;
+  int n,m;
+  cin>>n>>m;
   for(int i = 1;i<=n;i++){
-    if(){
+    int t;
+    cin>>t;
+    for(int a =1;a<=t;a++){
+      int temp;
+      cin>>temp;
+      if(a!=1){ // you don't have to keep track of edges the cs nerd is not interested in
 
+      }else{
+
+      }
     }
   }
 }

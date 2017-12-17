@@ -13,13 +13,11 @@ using namespace std;
 #define REP(i,a,b) for (int i = a; i <= b; i++)
 #define ll long long
 #define US (unsigned)
-typedef long long LL;
+#define vall(x) x.begin(), x.end()
+#define aall(x) begin(x), end(x)
+#define MT make_tuple
 typedef pair<int, int> PII;
 typedef vector<int> VI;
-typedef vector<VI > VVI;
-typedef vector<PII > VPII;
-typedef vector<VPII > VVPII;
-typedef map<int,int> MII;
 
 int main(){
   cin.sync_with_stdio(0);

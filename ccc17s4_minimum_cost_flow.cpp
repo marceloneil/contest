@@ -64,13 +64,16 @@ bool compareByLength(const edge &a, const edge &b){
     return a.c < b.c;
 }
 
+int edgeTrack, maxEdge;
 void kruskal(vector<edge> theEdges){
   sort(theEdges.begin(), theEdges.end(),compareByLength);
   int iterCount = 0;
   for(int i = 0; US i < theEdges.size();i++){
+    edgeTrack = i;
     if(iterCount==n-1)break;
     edge edg = theEdges[i];
     if(find(edg.st) != find(edg.end)){
+      maxEdge = edg.c;
       if(edg.a == 0){ // right now I am turning on off pipes. I may need to turn off pipes that started out as on
         ans++;
       }
@@ -92,12 +95,30 @@ int main(){
     cin>>a>>b>>c;
     if(i<n){
       edges.PB(edge(a,b,c,1));
-      edges.PB(edge(b,a,c,1));
     }else{
       edges.PB(edge(a,b,c,0));
-      edges.PB(edge(b,a,c,0));
     }
   }
   kruskal(edges);
 
+  // check if the most costly edge was an old pipe
+  if(edges[edgeTrack].a == 0){
+    for(int i = 1 ; i <=n;i++){ // init
+      make_set(i);
+    }
+    int iterCount = 0;
+    for(int i = 0; US i < edges.size();i++){
+      if(iterCount==n-1)break;
+      edge edg = edges[i];
+      if(find(edg.st) != find(edg.end)){
+        if(edg.c != maxEdge || (edg.c == maxEdge && edg.a == 1)){
+          merge(edg.st,edg.end);
+        }else if(edg.c == 1 && edg.c <=d){
+          cout<<ans-1<<endl;
+          return 0;
+        }
+      }
+    }
+  }
+  cout<<ans<<endl;
 }

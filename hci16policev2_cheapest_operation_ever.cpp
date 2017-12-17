@@ -22,32 +22,26 @@ typedef vector<VPII > VVPII;
 typedef map<int,int> MII;
 
 int dist[100005];
-int dp[100005][100005]; // the side that a cop car ends at
+ll dp[100005];
+ll n,h;
 
-  int n, h;
-int calc(int a, int b){
-  if(dp[a][b] != INF) return dp[a][b];
-  if(a == b){
-    dp[a][b] = h;
-    dp[b][a] = h;
-    return dp[b][a];
-  }
-  if(a > b){
-    dp[a][b] =
-  }else{
-
-  }
-
+ll f(int a, int b){
+  return pow(b-a,2);
 }
-// first I do a binary search on (a-b)^2 to look for a distance that is just more expensive than h
-// nvm that won't work bc there can be more than one police in a range
+
 int main(){
   cin.sync_with_stdio(0);
   cin.tie(0);
-  memset(dp,INF, sizeof dp);
   cin>>n>>h;
+  //memset(dp,, sizeof dp);
   for(int i = 1; i <=n;i++){
     cin>>dist[i];
   }
-
+  for(int i = 1; i <=n;i++){
+    dp[i] = dp[i-1] + h;
+    for(int a = 1;a <i;a++){
+      dp[i] = min(dp[i], dp[i-a] +f(dist[i-a+1],dist[i]) + h);
+    }
+  }
+  cout<<dp[n]<<endl;
 }

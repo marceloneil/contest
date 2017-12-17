@@ -20,47 +20,66 @@ typedef vector<VI > VVI;
 typedef vector<PII > VPII;
 typedef vector<VPII > VVPII;
 typedef map<int,int> MII;
+#define vall(x) x.begin(), x.end()
+#define aall(x) begin(x), end(x)
 
-int psa[2003];
+ll psa[2003];
 int dist[2003];
 int energy[2003];
 int dp[2003][2003];
 
-/*
-if(end){
-  dp[l][r] = max(dp[l][r], dp[l+1][r] + energy[l] - (dist[l+1] - dist[l]));
-  dp[l][r] = max(dp[l][r], dp[r][l+1] + energy[l] - (dist[r] - dist[l]));
-}else{
-  dp[r][l] = max(dp[r][l], dp[l][r-1] + energy[r] - (dist[r] - dist[l]));
-  dp[r][l] = max(dp[r][l], dp[r-1][l] + energy[r] - (dist[r] - dist[r-1]));
-}*/
-
+int minl,maxr;
+int n;
 int calc(int l, int r, bool end){ // end = 1 = end at left side
+  if(r >= n) return 0;
+  if(l<0) return 0;
   if(end){
-    if(dp[l][r] != -1){
+    if(dp[l][r]){
       return dp[l][r];
     }
   }else{
-    if(dp[r][l] != -1){
+    if(dp[r][l]){
       return dp[r][l];
     }
   }
   if(dist[l] <=0 && dist[r] >=0){
+    //cout<<dist[l]<<" "<<dist[r]<<endl;
     if(l == r){
       dp[l][r] = energy[l];
       dp[r][l] = energy[l];
-      return energy[l];
+      return dp[r][l];
     }
-    if(end){
-      cout<<"hi"<<endl;
-      dp[l][r] = max(dp[l][r], calc(l+1,r,1) + energy[l] - (dist[l+1] - dist[l]));
-      dp[l][r] = max(dp[l][r], calc(r,l+1,0) + energy[l] - (dist[r] - dist[l]));
-    }else{
-      dp[r][l] = max(dp[r][l], calc(l,r-1,1) + energy[r] - (dist[r] - dist[l]));
-      dp[r][l] = max(dp[r][l], calc(r-1,l,0) + energy[r] - (dist[r] - dist[r-1]));
+    if(end){ // I might have an infinite loop where dp[l][r] always = 0 and I can't calculate it
+    int ans1 = calc(l+1,r,1) - (dist[l+1] - dist[l]); // see if fax can travel that far
+    if(ans1 >= 0){
+      dp[l][r] = max(dp[l][r], ans1 + energy[l]);
+      minl = min(minl,l);
+      maxr = max(maxr,r);
     }
+    int ans2 = calc(r,l+1,0) - (dist[r] - dist[l]);
+    if(ans2 >= 0){
+      dp[l][r] = max(dp[l][r], ans2 + energy[l]);
+      minl = min(minl,l);
+      maxr = max(maxr,r);
+    }
+    return dp[l][r];
+  }else{
+    int ans1 = calc(l,r-1,1) - (dist[r] - dist[l]);
+    if(ans1 >= 0){
+      dp[r][l] = max(dp[r][l], ans1 + energy[r]);
+      minl = min(minl,l);
+      maxr = max(maxr,r);
+    }
+    int ans2 = calc(r-1,l,0) - (dist[r] - dist[r-1]);
+    if(ans2 >= 0){
+      dp[r][l] = max(dp[r][l], ans2 + energy[r]);
+      minl = min(minl,l);
+      maxr = max(maxr,r);
+    }
+    return dp[r][l];
   }
-  return -1; // fax is not in range
+}
+return 0; // fax is not in range
 }
 
 vector<PII> arr;
@@ -68,14 +87,13 @@ int main(){
   cin.sync_with_stdio(0);
   cin.tie(0);
 
-  int n;
   cin>>n;
   for(int i = 1; i <=n;i++){
     int a,b;
     cin>>a>>b;
     arr.PB({a,b});
   }
-  sort(begin(arr),end(arr));
+  sort(vall(arr));
   for(int i = 0; i < n; i++){
     if(i > 0){
       psa[i] = psa[i-1] + arr[i].S;
@@ -87,11 +105,17 @@ int main(){
       energy[i] = arr[i].S;
     }
   }
-  memset(dp, -1,sizeof dp);
-  cout<<calc(0,n,1)<<endl;
-  cout<<calc(0,n,0)<<endl;
-  // dp[x][y] represents the max amount of distance left over for fax to go to each house wthin the range
-  // dp[x][y] also represents that fax ends off at the xth house.
-  
+  //memset(dp, -1,sizeof dp);
+
+  calc(0,n-1,1);
+  ll ans1 = psa[maxr] - psa[minl-1];
+  maxr = 0;
+  minl = 0;
+  calc(0,n-1,0);
+  ll ans2 = psa[maxr] - psa[minl-1];
+  cout<<max(ans1,ans2)<<endl;
+
+// dp[x][y] represents the max amount of distance left over for fax to go to each house wthin the range
+// dp[x][y] also represents that fax ends off at the xth house.
 
 }
