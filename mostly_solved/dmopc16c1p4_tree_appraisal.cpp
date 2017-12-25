@@ -61,15 +61,13 @@ void dfs(int node, int dist,int val){
 }
 
 int main(){
-  cin.sync_with_stdio(0);
-  cin.tie(0);
-  cin>>n;
+  scanf("%d", &n);
   for(int i = 1; i <=n;i++){
-    cin>>value[i];
+    scanf("%d",&value[i]);
   }
   for(int i = 1; i<n;i++){
     int a,b;
-    cin>>a>>b;
+    scanf("%d %d",&a,&b);
     edges[a].push_back(b);
     edges[b].push_back(a);
     indegree[b]+=1;
@@ -85,5 +83,5 @@ int main(){
     //remove the node from the graph because all paths to this node will be a repeat.
     alreadyDfs[tVal] = 1;
   }
-  cout<<ans<<endl;
+  printf("%lld",ans);
 }

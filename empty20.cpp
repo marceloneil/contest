@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#define MAXN 100005
+#define MN 100005
 #define F first
 #define S second
 #define MP make_pair
@@ -18,6 +18,7 @@ using namespace std;
 #define MT make_tuple
 typedef pair<int, int> PII;
 typedef vector<int> VI;
+typedef vector<PII> VPII;
 
 int main(){
   cin.sync_with_stdio(0);

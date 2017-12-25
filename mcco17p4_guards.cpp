@@ -31,13 +31,16 @@ vector<int> edges[200005];
 
 queue<int> Q;
 queue<int> Q2;
-int curType = 1;
+queue<int> Q3;
+queue<int> Q4;
+int curType = 0;
 void filter(){
   while(!Q.empty()){
     int v = Q.front();Q.pop();
     if(status[v] == curType){
       for(int nd: edges[v]){
-        if( --indegree[nd] == 0 ){
+        indegree[nd]--;
+        if(indegree[nd] == 0 ){
           Q.push(nd);
         }
       }
@@ -47,14 +50,28 @@ void filter(){
   }
 }
 
+void filter2(){
+  while(!Q3.empty()){
+    int v = Q3.front();Q3.pop();
+    if(status[v] == curType){
+      for(int nd: edges[v]){
+        indegreea[nd]--;
+        if(indegreea[nd] == 0 ){
+          Q3.push(nd);
+        }
+      }
+    }else{
+      Q4.push(v);
+    }
+  }
+}
+
 int main(){
   cin.sync_with_stdio(0);
   cin.tie(0);
   cin>>n>>m;
   for(int i = 0 ; i<n;i++){
-    int temp;
-    cin>>temp;
-    status[i] = temp+1;
+    cin>>status[i];
   }
   for(int i = 0;i<m;i++){
     int a,b;
@@ -64,9 +81,10 @@ int main(){
     indegreea[b]+=1;
   }
 
-  for(int i = 1; i<=n;i++){
+  for(int i = 0; i<n;i++){
     if(indegree[i] == 0 ){
       Q.push(i);
+      Q3.push(i);
     }
   }
   int ans = 0;
@@ -74,32 +92,41 @@ int main(){
     filter();
 
     //switching weapons
-    if(curType == 1){
-      curType = 2;
-    }else{
+    if(curType == 0){
       curType = 1;
+    }else{
+      curType = 0;
     }
+    //purging the Q2 stack and then decreasing the indegrees of its children
     if(!Q2.empty()){
       ans++;
     }
-
-    //purging the Q2 stack and then decreasing the indegrees of its children
     while(!Q2.empty()){
-      cout<<"hi"<<endl;
       int val = Q2.front();Q2.pop();
-      for(int nd: edges[val]){
-        if( --indegree[nd] == 0 ){
-          Q.push(nd);
-        }
-      }
+      Q.push(val);
+    }
+  }
+  curType = 1;
+  int ans2 = 0;
+  while(!Q3.empty()){
+    filter2();
+
+    //switching weapons
+    if(curType == 0){
+      curType = 1;
+    }else{
+      curType = 0;
+    }
+    //purging the Q2 stack and then decreasing the indegrees of its children
+    if(!Q4.empty()){
+      ans2++;
+    }
+    while(!Q4.empty()){
+      int val = Q4.front();Q4.pop();
+      Q3.push(val);
     }
   }
 
-//now we do the same thing but start on the second type
-int ans2 = 0;
-
-
-
-
-  cout<<ans<<endl;
+  //now we do the same thing but start on the second type
+  cout<<min(ans,ans2)<<endl;
 }
