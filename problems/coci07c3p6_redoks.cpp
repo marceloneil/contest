@@ -1,25 +1,34 @@
-/**
-* In this code we have a very large array called arr, and very large set of operations
-* Operation #1: Increment the elements within range [i, j] with value val
-* Operation #2: Get max element within range [i, j]
-* Build tree: build(1, 0, n-1)
-* Update tree: update(1, 0, n-1, i, j, value)
-* Query tree: query(1, 0, n-1, i, j)
-* Actual space required by the tree = 2*2^ceil(log_2(n)) - 1
-*/
-
-#include<iostream>
-#include<algorithm>
+#include <bits/stdc++.h>
 using namespace std;
 
-#include<string.h>
-#include<math.h>
+#define F first
+#define S second
+#define MP make_pair
+#define PB push_back
+#define INF 0x3f3f3f3f
+#define EPS 1e-9
+#define PI 3.141592653589793238462
+#define MOD 1000000007
+#define REP(i,a,b) for (int i = a; i <= b; i++)
+#define ll long long
+#define US (unsigned)
+#define vall(x) x.begin(), x.end()
+#define aall(x) begin(x), end(x)
+#define MT make_tuple
+typedef pair<int, int> PII;
+typedef vector<int> VI;
+typedef vector<PII> VPII;
+#define MN 100005
+//pretty ez v ez ezez ez. okay. just seg tree then mod ans by 9
 
-#define n 20
-#define MAX (1+(1<<6)) // Why? :D
+
+int n,m;
+int arr[250005];
+
+
+#define MAX (1+(1<<20)) // Why? :D
 #define inf 0x7fffffff
 
-int arr[n];
 int tree[MAX];
 int lazy[MAX];
 
@@ -102,14 +111,23 @@ int maxr(int l, int r){
   return query(1, 0, n-1,l,r);
 }
 
-int main() {
-  for(int i = 0; i < n; i++) arr[i] = 1;
+
+int main(){
+  cin.sync_with_stdio(0);cin.tie(0);
+  cin>>n>>m;
+  string nums;
+  cin>>nums;
+  for(int i = 0;i<n;i++){
+    arr[i] = nums.at(i) - '0';
+  }
+
   build(1, 0, n-1);
   memset(lazy, 0, sizeof lazy);
-
-  addr(0,6,4);
-  addr(7,10,12);
-  addr(10,n-1,100);
-
-  cout << maxr(0, n-1) << endl; // Get max element in range [0, n-1]
+  for(int i = 1; i<=m;i++){
+    int a,b;
+    cin>>a>>b;
+    addr(a,b,1);
+  }
+  cout<<"hji"<<endl;
+  cout<<maxr(0,n-1)<<endl;
 }

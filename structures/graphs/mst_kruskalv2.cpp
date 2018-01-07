@@ -53,7 +53,7 @@ struct edge{
   };
 };
 
-bool compareByCost(const edge &a, const edge &b){
+bool compareByCost(const edge &a, const edge &b){ // vector goes from greatest to smallest [43,32,12...7,4,2]
   return a.c > b.c;
 }
 

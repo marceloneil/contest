@@ -16,24 +16,23 @@ using namespace std;
 typedef long long LL;
 typedef pair<int, int> PII;
 typedef vector<int> VI;
-typedef vector<VI > VVI;
-typedef vector<PII > VPII;
-typedef vector<VPII > VVPII;
+typedef vector<VI> VVI;
+typedef vector<PII> VPII;
 typedef map<int,int> MII;
 
-vector<PII> edges[1005]; // nextnode, weight of edge
+VPII edges[1005]; // nextnode, weight of edge
 
 int n,m;
 int dist[1005];
 bool vis[1005];
 
-struct CompareByFirst {
-  constexpr bool operator()(pair<int, int> const & a, pair<int, int> const & b)
+struct CompareByFirst { // PQ goes from smallest to greatest [2,4,7...22,28,31] .... I THINK NOT SURE
+  constexpr bool operator()(PII &a, PII &b)
   const noexcept{
-    return a.first > b.first;
+    return a.F > b.F;
   }
 };
-priority_queue<pair<int, int>, vector<pair<int, int> >, CompareByFirst> q;
+priority_queue<PII, vector<PII>, CompareByFirst> q;
 
 void dijkstra(int root){
   memset(dist, INF, sizeof dist);

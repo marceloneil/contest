@@ -23,7 +23,7 @@ typedef map<int,int> MII;
 
 int fullMask; // if an index in mask =1 that means that it has already been assigned
 int arr[23][23];
-ll dp[1048577][23];
+ll dp[10006][21];
 int n;
 int calc(int mask, int curBond){
   if(dp[mask][curBond] != -1) return dp[mask][curBond];
