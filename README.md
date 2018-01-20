@@ -4,7 +4,7 @@ Welcome to my mind after hours. A quick reminder for those who wish to *pirate* 
 
 __Dont.__
 
-My code is <u>the worst</u>. It's a bad as using your bricked Blackberry to knife butter.
+My code is <u>the worst</u>. It's a bad as using your bricked Blackberry to knife butter. (This joke won't age well)
 
 I program competitively improve my skills as a programmer... not to tutor others. If you do wish to discover AMAZING code, type "tourist" into google and *faint* in awe.
 
