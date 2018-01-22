@@ -22,27 +22,19 @@ typedef vector<int> VI;
 typedef vector<PII> VPII;
 #define MAXN 100005
 
-int w[100005], d[100005];
-
-// this is hyperfax cancer
-PII dp[100005][100005];
-PII calc(int l,int r,bool dir, int d){ // direction of damage, damage amount
-  if(l == r){
-    int ans = d[l] - d;
-    if(ans < 0) ans = 0;
-    return dp[l][r] = {ans,ans};
-  }
-
-}
+// really feels like maximum biparite matching
 
 int main(){
   cin.sync_with_stdio(0);cin.tie(0);
-
-  int n;
-  cin>>n;
+  int n,m,p;
   for(int i = 1; i<=n;i++){
-    cin>>w[i]>>d[i];
-  }
-  calc(1,n,1,0);
+    int k;
+    cin>>k;
+    for(int a = 1; a<=k;a++){
 
+    }
+    for(int b = 1; b <=p;b++){
+
+    }
+  }
 }

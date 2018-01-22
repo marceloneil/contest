@@ -22,17 +22,23 @@ typedef vector<int> VI;
 typedef vector<PII> VPII;
 #define MAXN 100005
 
-
+int arr[50005];
+VI edges[50005];
 int main(){
   cin.sync_with_stdio(0);cin.tie(0);
 
-  int n;
-  cin>>n;
-  for(int i = 1;i<=n;i++){
-    int temp;
-    cin>>temp;
-    for(int a = 1;a<=temp;a++){
-
-    }
+  int n,q;
+  cin>>n>>q;
+  for(int i = 1; i<=n;i++){
+    cin>>arr[i];
+  }
+  for(int i = 1;i<n;i++){
+    int a,b;
+    cin>>a>>b;
+    edges[a].PB(b);
+    edges[b].PB(a);
+  }
+  while(q--){
+    
   }
 }

@@ -55,10 +55,11 @@ int main(){
   cin.sync_with_stdio(0);
   cin.tie(0);
   int n,x;
+  cout<<atan(5/0)<<endl;
   cin>>n>>x;
   for(int i = 1; i <=n;i++){
     int a,b;
     cin>>a>>b;
-    lines.PB({})
+    //lines.PB({})
   }
 }

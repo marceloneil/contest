@@ -22,6 +22,7 @@ typedef vector<int> VI;
 typedef vector<PII> VPII;
 #define MAXN 100005
 
+// I think this is a 2d bit. do if you have free time :)
 int main(){
   cin.sync_with_stdio(0);cin.tie(0);
 }

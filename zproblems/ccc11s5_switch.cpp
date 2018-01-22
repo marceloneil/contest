@@ -22,27 +22,41 @@ typedef vector<int> VI;
 typedef vector<PII> VPII;
 #define MAXN 100005
 
-int w[100005], d[100005];
+int arr[16777216];
+int k;
 
-// this is hyperfax cancer
-PII dp[100005][100005];
-PII calc(int l,int r,bool dir, int d){ // direction of damage, damage amount
-  if(l == r){
-    int ans = d[l] - d;
-    if(ans < 0) ans = 0;
-    return dp[l][r] = {ans,ans};
+int make(int mask){
+  if(mask == 0) return 0;
+  if(arr[mask] != -1) return arr[mask];
+  int lowest = INF;
+  int onCount = 0;
+  for(int i = 0; i<k;i++){
+    if(mask & 1<<i) onCount++;
+    if(onCount >=4){
+      mask &= ~(1<<i);
+      mask &= ~(1<<(i-1));
+      mask &= ~(1<<(i-2));
+      mask &= ~(1<<(i-3));
+    }
   }
-
+  for(int i = 0;i<k;i++){
+    if(!(mask & 1<<i)){
+      int newMask = mask & (1<<i);
+      lowest = min(lowest, make(newMask));
+    }
+  }
+  return 1 + lowest;
 }
 
 int main(){
   cin.sync_with_stdio(0);cin.tie(0);
-
-  int n;
-  cin>>n;
-  for(int i = 1; i<=n;i++){
-    cin>>w[i]>>d[i];
+  memset(arr,-1,sizeof arr);
+  cin>>k;
+  int firstMask = 0;
+  for(int i = 0;i<k;i++){
+    int temp;
+    cin>>temp;
+    if(temp) firstMask |= (1<<i);
   }
-  calc(1,n,1,0);
-
+  cout<<make(firstMask)<<endl;
 }

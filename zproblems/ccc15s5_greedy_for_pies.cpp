@@ -20,17 +20,43 @@ typedef vector<int> VI;
 typedef vector<PII> VPII;
 #define MN 100005
 
+int arr[3005];
+int dp[3005][2][105][105];
+VI items;
+int n,m;
 
-int calc(int i){
+// interesting address management:
+// int& ret=dp[pos][take][l][r];
 
+// THIS FUNCTION IS TERRIBLY WRONG. I NEED TO FIX IT
+int calc(int idx, int prevTook, int l, int r){
+  int& ret=dp[idx][prevTook][l][r];
+  if(ret != -1) return ret;
+  if(idx >= n){
+    if(l>=r) return ret;
+    if(prevTook){
+      return ret = calc(idx, 0,l+1,r);
+    }else{
+      return ret = items[r] + calc(idx, 1,l,r-1);
+    }
+  }else{
+    if(prevTook){
+      ret = max(calc(idx + 1, 0, l,r), arr[idx] + calc(idx + 1, 1, l+1,r));
+    }else{
+      ret = calc(idx + 1, 1, l,r);
+      if(l <= r){
+        ret = max(ret, calc(idx + 1, 1, l,r));
+      }
+    }
+  }
+  return ret;
 }
 
-int arr[3005];
-deque<int> items;
+
+
 int main(){
   cin.sync_with_stdio(0);cin.tie(0);
-
-  int n,m;
+  memset(dp, -1,sizeof dp);
   cin>>n;
   for(int i = 1; i<=n;i++){
     cin>>arr[i];
@@ -46,7 +72,4 @@ int main(){
   //all extra pies to insert, we only have to check in 2 spots.
 
   sort(vall(items)); // ascending order
-  for(int i = 0;i<m;i++){
-    cout<<items[i]<<endl;
-  }
 }

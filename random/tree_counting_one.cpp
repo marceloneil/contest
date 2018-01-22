@@ -1,3 +1,4 @@
+//https://www.hackerearth.com/problem/algorithm/counting-on-tree-1/
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -22,6 +23,27 @@ typedef vector<int> VI;
 typedef vector<PII> VPII;
 #define MAXN 100005
 
+VI edges[50005];
+int vals[50005], sums[50005];
 int main(){
   cin.sync_with_stdio(0);cin.tie(0);
+  int n;
+  cin>>n;
+  for(int i = 1; i<=n;i++){
+    cin>>vals[i];
+  }
+  for(int i = 1 ; i <=n-1;i++){
+    int a,b;
+    cin>>a>>b;
+    edges[a].PB(b);
+  }
+  // assume that 1 is root
+  for(int i = n; i>0;i--){
+    int curAns = 0;
+    for(int u : edges[i]){
+      if(u > i) curAns+=sums[u];
+    }
+    sums[i] = curAns;
+  }
+
 }

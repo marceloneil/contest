@@ -22,6 +22,40 @@ typedef vector<int> VI;
 typedef vector<PII> VPII;
 #define MAXN 100005
 
+// this solution is incorrect. too lazy to debug
+
+VPII edges[10005];
+int cherries[10005];
+int n,c,k,answer;
+
+PII calc(int cur,int par){ // returns {#cherries, weight}
+PII curAns = {cherries[cur], 0};
+for(PII u : edges[cur]){
+  if(u.F != par){
+    PII ans = calc(u.F, cur);
+    ans.S += u.S;
+    if(ans.F >= c && ans.S <= k){
+      answer++;
+    }
+    curAns.F +=ans.F;
+    curAns.S +=ans.S;
+  }
+}
+return curAns;
+}
+
 int main(){
   cin.sync_with_stdio(0);cin.tie(0);
+  cin>>n>>c>>k;
+  for(int i = 1;i<=n;i++){
+    cin>>cherries[i];
+  }
+  for(int a = 1; a<n;a++){
+    int x,y,z;
+    cin>>x>>y>>z;
+    edges[x].PB({y,z});
+    edges[y].PB({x,z});
+  }
+  calc(1,-1);
+  cout<<answer<<endl;
 }
